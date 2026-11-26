@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nota Ringkas Ibadah Puasa - Pendidikan Islam Tahun 4</title>
+  <!-- Memuatkan Tailwind CSS untuk susun atur responsif -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Memuatkan fon mesra kanak-kanak dan mudah dibaca -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet" />
+  <!-- Memuatkan Tone.js untuk kesan bunyi (SFX) interaktif tanpa pautan luar -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+
+  <style>
+    /* Reset asas supaya penuh 100% lebar tanpa ruang kosong berlebihan apabila di-embed dalam JotForm */
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
+      background-color: transparent;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    .font-display {
+      font-family: 'Fredoka', sans-serif;
+    }
+
+    /* =========================================================
+       GAYA MODUL NOTA RINGKAS & NISBAH ASPEK LANDSKAP 16:9 WAJIB
+       ========================================================= */
+    .nota-stage-card {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: linear-gradient(160deg, #0E473C 0%, #165E4F 45%, #1E7462 78%, #114E42 100%);
+      border: 1.5px solid rgba(235, 196, 98, 0.65);
+      box-shadow:
+        0 14px 32px -10px rgba(10, 48, 40, 0.28),
+        0 0 0 1px rgba(247, 217, 134, 0.25),
+        inset 0 1px 0 rgba(255, 248, 220, 0.35);
+    }
+
+    /* Garis pembahagi mewah keemasan */
+    .gold-hairline {
+      height: 1px;
+      background: linear-gradient(90deg, transparent 0%, rgba(242, 206, 110, 0.65) 50%, transparent 100%);
+    }
+
+    /* Animasi kabus hutan bergerak perlahan */
+    @keyframes mosqueMistFloat {
+      0%, 100% {
+        transform: translateX(0px);
+      }
+      50% {
+        transform: translateX(6px);
+      }
+    }
+
+    /* Animasi cahaya bulan purnama berdenyut lembut */
+    @keyframes moonHaloPulse {
+      0%, 100% {
+        opacity: 0.55;
+        transform: scale(1);
+      }
+      50% {
+        opacity: 0.85;
+        transform: scale(1.05);
+      }
+    }
+
+    /* Animasi kawanan burung terbang perlahan di langit */
+    @keyframes birdsGlide {
+      0%, 100% {
+        transform: translate(0px, 0px);
+      }
+      50% {
+        transform: translate(12px, -4px);
+      }
+    }
+
+    /* Animasi transisi apabila murid bertukar halaman nota */
+    @keyframes notePageFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .anim-mist-drift {
+      animation: mosqueMistFloat 12s ease-in-out infinite;
+    }
+
+    .anim-moon-halo {
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: moonHaloPulse 6s ease-in-out infinite;
+    }
+
+    .anim-birds {
+      animation: birdsGlide 14s ease-in-out infinite;
+    }
+
+    .note-page-enter {
+      animation: notePageFadeIn 0.3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    /* Interaksi kad isi nota (elemen bukan navigasi) */
+    .note-item-card {
+      background-color: #FFFFFF;
+      border: 1.5px solid rgba(20, 88, 74, 0.24);
+      box-shadow: 0 3px 10px -2px rgba(14, 58, 49, 0.08);
+      transition: transform 0.18s ease, box-shadow 0.22s ease, border-color 0.22s ease, background-color 0.22s ease;
+    }
+
+    .note-item-card:hover {
+      transform: translateY(-2px);
+      border-color: #C79222;
+      box-shadow: 0 8px 18px -6px rgba(14, 58, 49, 0.18);
+    }
+
+    .note-item-card:active {
+      transform: scale(0.985);
+    }
+
+    .note-item-card.is-highlighted {
+      background: linear-gradient(145deg, #FFFDF5 0%, #FFF3C9 100%);
+      border-color: #15594B;
+      box-shadow:
+        0 8px 20px -6px rgba(180, 130, 24, 0.25),
+        inset 0 0 0 1px rgba(212, 161, 42, 0.45);
+    }
+
+    /* Bar skrol halus untuk ruang bacaan supaya paparan 16:9 kekal kemas */
+    .custom-scroll::-webkit-scrollbar {
+      width: 5px;
+    }
+    .custom-scroll::-webkit-scrollbar-track {
+      background: rgba(19, 79, 67, 0.08);
+      border-radius: 9999px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: rgba(19, 79, 67, 0.28);
+      border-radius: 9999px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb:hover {
+      background: rgba(19, 79, 67, 0.45);
+    }
+  </style>
+</head>
+<body class="w-full text-[#0C2B25]">
+
+  <!-- =========================================================
+       KONTAINER UTAMA MODUL NOTA RINGKAS (LEBAR 100% & LANDSKAP 16:9)
+       ========================================================= -->
+  <main class="w-full">
+    <section
+      id="notaLandscapeStage"
+      aria-labelledby="notaMainHeading"
+      class="nota-stage-card relative overflow-hidden rounded-2xl sm:rounded-3xl w-full aspect-video flex flex-col justify-between"
+    >
+      
+      <!-- LATAR BELAKANG SENI ILUSTRASI MASJID BERKUBAH, BULAN PURNAMA & HUTAN BERKABUS -->
+      <div class="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+        <svg class="w-full h-full object-cover" viewBox="0 0 1200 675" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="mosqueSkyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#0E473C" />
+              <stop offset="38%" stop-color="#186353" />
+              <stop offset="72%" stop-color="#247B68" />
+              <stop offset="100%" stop-color="#135245" />
+            </linearGradient>
+            <radialGradient id="paleMoonGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#FFF4C2" stop-opacity="0.9" />
+              <stop offset="55%" stop-color="#E8C668" stop-opacity="0.36" />
+              <stop offset="100%" stop-color="#E8C668" stop-opacity="0" />
+            </radialGradient>
+            <linearGradient id="goldRimGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#FAE59E" stop-opacity="0.6" />
+              <stop offset="100%" stop-color="#D4A63B" stop-opacity="0.22" />
+            </linearGradient>
+          </defs>
+
+          <!-- Langit Zamrud Cerah & Hangat -->
+          <rect width="1200" height="675" fill="url(#mosqueSkyGrad)" />
+
+          <!-- Bintang Halus Keemasan di Langit -->
+          <g fill="#FFF0B8" opacity="0.55">
+            <circle cx="460" cy="68" r="1.6" />
+            <circle cx="545" cy="98" r="1.2" />
+            <circle cx="670" cy="58" r="1.8" />
+            <circle cx="745" cy="92" r="1.3" />
+            <circle cx="1095" cy="74" r="1.7" />
+            <circle cx="385" cy="112" r="1.4" />
+          </g>
+
+          <!-- Bulan Purnama Keemasan di Bahagian Kanan Atas -->
+          <circle cx="855" cy="152" r="145" fill="url(#paleMoonGlow)" class="anim-moon-halo" />
+          <circle cx="855" cy="152" r="68" fill="#FBE8A4" opacity="0.88" />
+
+          <!-- Kawanan Burung Terbang di Langit Kanan -->
+          <g fill="#FFF2C2" opacity="0.52" class="anim-birds">
+            <path d="M935,132 Q941,126 947,131 Q953,126 959,132 Q953,129 947,133 Q941,129 935,132 Z" />
+            <path d="M972,118 Q977,113 982,117 Q987,113 992,118 Q987,115 982,119 Q977,115 972,118 Z" />
+            <path d="M960,150 Q965,145 970,149 Q975,145 980,150 Q975,147 970,151 Q965,147 960,150 Z" />
+            <path d="M1008,138 Q1013,133 1018,137 Q1023,133 1028,138 Q1023,135 1018,139 Q1013,135 1008,138 Z" />
+            <path d="M1035,110 Q1039,106 1043,109 Q1047,106 1051,110 Q1047,108 1043,111 Q1039,108 1035,110 Z" />
+            <path d="M895,108 Q899,104 903,107 Q907,104 911,108 Q907,106 903,109 Q899,106 895,108 Z" />
+            <path d="M1055,154 Q1059,150 1063,153 Q1067,150 1071,154 Q1067,152 1063,155 Q1059,152 1055,154 Z" />
+          </g>
+
+          <!-- Banjaran Bukit Kabus Jauh -->
+          <path d="M0,295 Q210,245 430,285 T860,270 T1200,290 L1200,675 L0,675 Z" fill="#2A8470" opacity="0.62" />
+
+          <!-- Siluet Masjid Berkubah & Menara Tinggi dengan Kilauan Garis Emas -->
+          <g fill="#0F4439" stroke="url(#goldRimGrad)" stroke-width="1.3" opacity="0.62">
+            <!-- Menara Tinggi Utama Kiri -->
+            <rect x="136" y="120" width="24" height="210" rx="2" />
+            <rect x="131" y="156" width="34" height="7" rx="3" />
+            <rect x="131" y="200" width="34" height="7" rx="3" />
+            <rect x="133" y="245" width="30" height="7" rx="3" />
+            <!-- Kubah Puncak Menara -->
+            <path d="M136,120 Q148,92 160,120 Z" />
+            <line x1="148" y1="78" x2="148" y2="96" stroke="#F4D378" stroke-width="2" />
+            <circle cx="148" cy="76" r="3" fill="#F4D378" />
+
+            <!-- Kubah Utama Besar Masjid -->
+            <path d="M185,262 C185,200 225,182 245,162 C265,182 305,200 305,262 Z" />
+            <line x1="245" y1="140" x2="245" y2="164" stroke="#F4D378" stroke-width="2" />
+            <path d="M246,136 A7,7 0 1,0 253,144 A5.5,5.5 0 1,1 246,136 Z" fill="#F4D378" />
+
+            <!-- Kubah Sisi Kiri & Kanan -->
+            <path d="M164,276 C164,248 182,240 190,232 C198,240 216,248 216,276 Z" />
+            <path d="M276,276 C276,248 294,240 302,232 C310,240 328,248 328,276 Z" />
+
+            <!-- Menara Kecil Kanan Masjid -->
+            <rect x="336" y="206" width="14" height="108" rx="2" />
+            <path d="M335,206 Q343,188 351,206 Z" />
+            <line x1="343" y1="178" x2="343" y2="190" stroke="#F4D378" stroke-width="1.8" />
+
+            <!-- Badan Bawah Masjid -->
+            <rect x="122" y="262" width="236" height="76" rx="4" />
+          </g>
+
+          <!-- Lapisan Hutan Kabus Zamrud -->
+          <g class="anim-mist-drift">
+            <path d="M0,385 Q160,350 340,380 T720,368 T1050,385 L1200,364 L1200,675 L0,675 Z" fill="#1D6A59" opacity="0.58" />
+          </g>
+
+          <!-- Siluet Puncak Pokok Hutan di Bahagian Bawah -->
+          <path d="M0,555 Q90,510 185,546 Q285,500 390,550 Q510,518 630,555 Q760,510 885,546 Q1010,500 1120,542 Q1165,528 1200,546 L1200,675 L0,675 Z" fill="#134E42" opacity="0.62" />
+          <path d="M0,600 Q140,564 290,600 T620,595 T940,600 T1200,582 L1200,675 L0,675 Z" fill="#0D3C33" opacity="0.68" />
+        </svg>
+      </div>
+
+      <!-- KANDUNGAN UTAMA MODUL NOTA RINGKAS (SUSUN ATUR LANDSKAP 16:9 SENTIASA SEIMBANG) -->
+      <div class="relative z-10 flex-1 min-h-0 flex flex-col p-2.5 sm:p-4 lg:p-5 gap-2 sm:gap-2.5">
+        
+        <!-- BAR ATAS SATU BARIS KOMPAK: TAJUK MODUL, BINTANG KEFAHAMAN & KAWALAN SFX -->
+        <header class="flex flex-row items-center justify-between gap-2 shrink-0">
+          <div class="flex items-center gap-2 min-w-0">
+            <div class="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#0F453A]/90 text-[#FCE8A6] border border-[#ECC86B]/55 text-[10px] lg:text-[11px] font-bold tracking-wider shrink-0 shadow-xs">
+              <svg class="w-3 h-3 text-[#F8DA7E]" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2c-.4 1.2-1.5 2-2.5 3C7.2 7.2 6 9.3 6 12v8h12v-8c0-2.7-1.2-4.8-3.5-7-1-1-2.1-1.8-2.5-3zm-8 10v8h2v-8H4zm14 0v8h2v-8h-2z"/>
+              </svg>
+              <span>TAHUN 4 • MARI PUASA</span>
+            </div>
+            <h1 id="notaMainHeading" class="font-display text-sm sm:text-lg lg:text-2xl font-bold text-[#FFF9E8] tracking-wide truncate drop-shadow-[0_2px_6px_rgba(8,38,32,0.32)]">
+              NOTA RINGKAS IBADAH PUASA
+            </h1>
+          </div>
+
+          <!-- Penunjuk Bintang & Butang SFX (Elemen Bukan Navigasi) -->
+          <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
+            <div id="starCounterBadge" class="inline-flex items-center gap-1 px-2 sm:px-2.5 py-1 rounded-lg sm:rounded-xl bg-white border border-[#DFB654] text-[#0B332B] text-[10px] sm:text-xs font-bold shadow-xs">
+              <span class="text-amber-500 text-xs sm:text-sm">⭐</span>
+              <span><span class="hidden md:inline">Bintang Faham: </span><span id="starCountValue" class="text-[#8A5A08] font-extrabold">0</span>/5</span>
+            </div>
+
+            <button
+              id="sfxToggleBtn"
+              type="button"
+              aria-pressed="true"
+              class="inline-flex items-center gap-1 px-2 sm:px-2.5 py-1 rounded-lg sm:rounded-xl bg-white hover:bg-[#FFFDF5] active:scale-95 border border-[#DFB654] text-[#0B332B] text-[10px] sm:text-xs font-bold shadow-xs transition cursor-pointer"
+            >
+              <span id="sfxIconText">🔔</span>
+              <span id="sfxStatusLabel">SFX: ON</span>
+            </button>
+          </div>
+        </header>
+
+        <!-- PEMBAHAGI GARIS EMAS HALUS -->
+        <div class="gold-hairline w-full shrink-0" aria-hidden="true"></div>
+
+        <!-- RUANG KERJA UTAMA 2 LAJUR LANDSKAP (PANEL SISI TOPIK + PENTAS BACAAN NOTA) -->
+        <div class="flex-1 min-h-0 flex flex-row gap-2 sm:gap-3 lg:gap-4">
+          
+          <!-- PANEL SISI KIRI: NAVIGASI 5 TOPIK & KEMAJUAN BACAAN -->
+          <aside aria-label="Navigasi Halaman Nota Puasa" class="w-36 sm:w-44 md:w-52 lg:w-60 shrink-0 flex flex-col justify-between gap-1.5 sm:gap-2 min-h-0">
+            <div id="pageStepperTabs" class="flex flex-col gap-1 sm:gap-1.5 flex-1 justify-between min-h-0">
+              <button type="button" data-page-target="0" class="step-tab-btn px-2 sm:px-3 py-1 sm:py-1.5 lg:py-2 rounded-lg sm:rounded-xl text-left border transition cursor-pointer flex items-center justify-between gap-1.5">
+                <span class="text-[11px] sm:text-xs lg:text-[13px] font-bold truncate">1. Maksud Puasa</span>
+                <span class="step-check text-[11px] sm:text-xs shrink-0">○</span>
+              </button>
+              <button type="button" data-page-target="1" class="step-tab-btn px-2 sm:px-3 py-1 sm:py-1.5 lg:py-2 rounded-lg sm:rounded-xl text-left border transition cursor-pointer flex items-center justify-between gap-1.5">
+                <span class="text-[11px] sm:text-xs lg:text-[13px] font-bold truncate">2. Syarat Wajib</span>
+                <span class="step-check text-[11px] sm:text-xs shrink-0">○</span>
+              </button>
+              <button type="button" data-page-target="2" class="step-tab-btn px-2 sm:px-3 py-1 sm:py-1.5 lg:py-2 rounded-lg sm:rounded-xl text-left border transition cursor-pointer flex items-center justify-between gap-1.5">
+                <span class="text-[11px] sm:text-xs lg:text-[13px] font-bold truncate">3. Syarat Sah</span>
+                <span class="step-check text-[11px] sm:text-xs shrink-0">○</span>
+              </button>
+              <button type="button" data-page-target="3" class="step-tab-btn px-2 sm:px-3 py-1 sm:py-1.5 lg:py-2 rounded-lg sm:rounded-xl text-left border transition cursor-pointer flex items-center justify-between gap-1.5">
+                <span class="text-[11px] sm:text-xs lg:text-[13px] font-bold truncate">4. Rukun Puasa</span>
+                <span class="step-check text-[11px] sm:text-xs shrink-0">○</span>
+              </button>
+              <button type="button" data-page-target="4" class="step-tab-btn px-2 sm:px-3 py-1 sm:py-1.5 lg:py-2 rounded-lg sm:rounded-xl text-left border transition cursor-pointer flex items-center justify-between gap-1.5">
+                <span class="text-[11px] sm:text-xs lg:text-[13px] font-bold truncate">5. Perkara Batal</span>
+                <span class="step-check text-[11px] sm:text-xs shrink-0">○</span>
+              </button>
+            </div>
+
+            <!-- Kotak Kemajuan di Bahagian Bawah Panel Sisi -->
+            <div class="rounded-xl sm:rounded-2xl bg-[#0A352D]/85 border border-[#ECC86B]/45 p-2 sm:p-2.5 lg:p-3 text-[#FFF9E6] space-y-1.5 shrink-0 shadow-xs">
+              <div class="flex items-center justify-between text-[10px] sm:text-[11px] font-bold gap-1">
+                <span class="text-[#FCE8A6] truncate">Kemajuan</span>
+                <span id="pageFractionLabel" class="px-1.5 py-0.5 rounded bg-[#16594B] border border-[#ECC86B]/40 text-[#FFF9E6] shrink-0">
+                  1 / 5
+                </span>
+              </div>
+              <div class="w-full h-1.5 sm:h-2 bg-[#06241E] border border-[#F3D27A]/40 rounded-full overflow-hidden p-0.5">
+                <div id="notaProgressBar" class="h-full bg-gradient-to-r from-[#DFB03E] via-[#F4D378] to-[#FFF2BD] rounded-full transition-all duration-300" style="width: 20%;"></div>
+              </div>
+              <p class="hidden lg:block text-[11px] text-[#E3EFEA] leading-snug pt-0.5">
+                💡 <span class="font-bold text-[#FFE89E]">Tip:</span> Ketik mana-mana kad nota di sebelah untuk bunyi &amp; serlahkan isi penting.
+              </p>
+            </div>
+          </aside>
+
+          <!-- PANEL KANAN: RUANG BACAAN SANDSTONE & BAR NAVIGASI HALAMAN -->
+          <div id="notaPageViewport" class="flex-1 min-w-0 min-h-0 bg-[#F2ECE0] rounded-xl sm:rounded-2xl p-2.5 sm:p-3.5 lg:p-4 border-2 border-[#E4BE5E]/85 shadow-lg flex flex-col justify-between gap-1.5 sm:gap-2">
+            
+            <!-- Bahagian Atas Ruang Bacaan: Butang Tandakan Faham -->
+            <div class="flex items-center justify-between gap-1.5 pb-1.5 border-b border-[#145346]/15 shrink-0">
+              <span class="text-[10px] sm:text-[11px] font-semibold text-[#1E3B35] truncate">
+                👆 Ketik kad nota untuk SFX &amp; serlahkan isi
+              </span>
+              <button
+                id="markUnderstoodBtn"
+                type="button"
+                class="inline-flex items-center justify-center gap-1 px-2 sm:px-2.5 py-1 rounded-lg font-bold text-[10px] sm:text-xs transition active:scale-95 cursor-pointer shrink-0 shadow-xs"
+              >
+                <span id="markUnderstoodIcon">⭐</span>
+                <span id="markUnderstoodText">Tandakan Faham</span>
+              </button>
+            </div>
+
+            <!-- Kandungan Dinamik Halaman Nota (Berlapang & Mudah Dibaca dalam 16:9) -->
+            <div id="notaPageContent" class="note-page-enter flex-1 min-h-0 overflow-y-auto custom-scroll pr-1"></div>
+
+            <!-- Bar Navigasi Bawah: Sebelumnya, Titik Halaman & Seterusnya -->
+            <div class="pt-1.5 sm:pt-2 border-t border-[#145346]/15 flex items-center justify-between gap-2 shrink-0">
+              <button
+                id="prevPageBtn"
+                type="button"
+                class="inline-flex items-center justify-center gap-1 px-2.5 sm:px-3.5 py-1.5 rounded-lg sm:rounded-xl bg-white hover:bg-[#FFFDF5] disabled:opacity-45 disabled:pointer-events-none active:scale-95 text-[#0B332B] border border-[#DFB654] font-bold text-[11px] sm:text-xs shadow-xs transition cursor-pointer"
+              >
+                <svg class="w-3.5 h-3.5 text-[#9E6E12]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+                <span>Sebelumnya</span>
+              </button>
+
+              <!-- Penunjuk Titik Halaman (Dots) -->
+              <div id="pageDotsContainer" class="flex items-center gap-1 sm:gap-1.5" aria-hidden="true">
+                <span class="page-dot w-5 sm:w-6 h-1.5 sm:h-2 rounded-full bg-[#134F43] transition-all"></span>
+                <span class="page-dot w-1.5 sm:w-2 h-1.5 sm:h-2 rounded-full bg-[#134F43]/30 transition-all"></span>
+                <span class="page-dot w-1.5 sm:w-2 h-1.5 sm:h-2 rounded-full bg-[#134F43]/30 transition-all"></span>
+                <span class="page-dot w-1.5 sm:w-2 h-1.5 sm:h-2 rounded-full bg-[#134F43]/30 transition-all"></span>
+                <span class="page-dot w-1.5 sm:w-2 h-1.5 sm:h-2 rounded-full bg-[#134F43]/30 transition-all"></span>
+              </div>
+
+              <button
+                id="nextPageBtn"
+                type="button"
+                class="inline-flex items-center justify-center gap-1 px-3 sm:px-4 py-1.5 rounded-lg sm:rounded-xl bg-gradient-to-r from-[#D9AC42] via-[#EECA6D] to-[#CFA034] hover:brightness-105 active:scale-95 text-[#0E3B32] border border-[#B88924]/50 font-extrabold text-[11px] sm:text-xs shadow-sm transition cursor-pointer"
+              >
+                <span id="nextPageBtnLabel">Seterusnya</span>
+                <svg id="nextPageBtnIcon" class="w-3.5 h-3.5 text-[#0E3B32]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- PAPARAN TAHNIAH TERAPUNG (SUPAYA NISBAH ASPEK 16:9 TIDAK BERUBAH APABILA SELESAI) -->
+      <div id="completionBanner" class="hidden absolute inset-0 z-30 bg-[#072620]/75 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4">
+        <div class="w-full max-w-md rounded-2xl sm:rounded-3xl bg-gradient-to-br from-[#0F493D] to-[#175F50] border-2 border-[#F0CA68] text-white p-4 sm:p-5 shadow-2xl text-center space-y-3">
+          <div class="w-11 h-11 sm:w-12 sm:h-12 mx-auto rounded-xl sm:rounded-2xl bg-gradient-to-br from-[#F7D77E] to-[#CE9B2C] text-[#0A2E27] flex items-center justify-center text-2xl shadow-md">
+            🏆
+          </div>
+          <div>
+            <h2 class="font-display text-base sm:text-lg font-bold text-[#FFE999]">
+              Tahniah! Anda telah membaca kesemua 5 Nota Ringkas Puasa!
+            </h2>
+            <p id="completionSummaryText" class="text-xs text-[#F2FAF6] mt-1 leading-relaxed">
+              Anda bersedia untuk menjawab kuiz dan aktiviti pengelasan ibadah puasa.
+            </p>
+          </div>
+          <div class="flex flex-row items-center justify-center gap-2 pt-1">
+            <button
+              id="restartNotesBtn"
+              type="button"
+              class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-[#F4CE6A] to-[#DFAB38] hover:brightness-105 active:scale-95 text-[#0A2B24] border border-[#FFF3C4] font-extrabold text-xs shadow-sm transition cursor-pointer"
+            >
+              ↺ Ulang Kaji Halaman 1
+            </button>
+            <button
+              id="closeCompletionBtn"
+              type="button"
+              class="px-3.5 py-2 rounded-xl bg-white/15 hover:bg-white/25 active:scale-95 text-[#FFF9E6] border border-[#F0CA68]/50 font-bold text-xs transition cursor-pointer"
+            >
+              Semak Semula
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <script>
+    /**
+     * Skrip Modul Nota Ringkas Ibadah Puasa:
+     * - Mengurus navigasi 5 halaman nota ringkas secara interaktif dalam paparan landskap 16:9.
+     * - Menghasilkan kesan bunyi (SFX) menggunakan Tone.js untuk butang navigasi
+     *   serta elemen bukan navigasi (kad isi nota, kad lafaz niat, dan butang faham).
+     */
+    window.onload = function () {
+      let isSfxEnabled = true;
+      let sfxSynth = null;
+      let sfxChimeSynth = null;
+
+      /**
+       * Membina enjin pensintesis SFX supaya berfungsi serta-merta apabila murid berinteraksi
+       */
+      function ensureSfxSynths() {
+        if (!sfxSynth) {
+          sfxSynth = new Tone.PolySynth(Tone.Synth, {
+            oscillator: { type: 'sine' },
+            envelope: {
+              attack: 0.008,
+              decay: 0.16,
+              sustain: 0.02,
+              release: 0.25
+            },
+            volume: -8
+          }).toDestination();
+        }
+        if (!sfxChimeSynth) {
+          sfxChimeSynth = new Tone.PolySynth(Tone.Synth, {
+            oscillator: { type: 'triangle' },
+            envelope: {
+              attack: 0.015,
+              decay: 0.35,
+              sustain: 0.05,
+              release: 0.6
+            },
+            volume: -9
+          }).toDestination();
+        }
+      }
+
+      /**
+       * Memainkan kesan bunyi mengikut kategori interaksi
+       */
+      async function playSfx(type) {
+        if (!isSfxEnabled) return;
+        try {
+          if (Tone.context.state !== 'running') {
+            await Tone.start();
+          }
+          ensureSfxSynths();
+          const now = Tone.now();
+
+          if (type === 'navNext') {
+            sfxSynth.triggerAttackRelease('C5', '16n', now);
+            sfxSynth.triggerAttackRelease('G5', '16n', now + 0.07);
+          } else if (type === 'navPrev') {
+            sfxSynth.triggerAttackRelease('G5', '16n', now);
+            sfxSynth.triggerAttackRelease('D5', '16n', now + 0.07);
+          } else if (type === 'cardTap') {
+            sfxSynth.triggerAttackRelease('E5', '32n', now);
+            sfxSynth.triggerAttackRelease('A5', '16n', now + 0.045);
+          } else if (type === 'niatChime') {
+            sfxChimeSynth.triggerAttackRelease('F5', '16n', now);
+            sfxChimeSynth.triggerAttackRelease('A5', '16n', now + 0.08);
+            sfxChimeSynth.triggerAttackRelease('C6', '8n', now + 0.16);
+          } else if (type === 'starSuccess') {
+            sfxChimeSynth.triggerAttackRelease('C5', '16n', now);
+            sfxChimeSynth.triggerAttackRelease('E5', '16n', now + 0.07);
+            sfxChimeSynth.triggerAttackRelease('G5', '16n', now + 0.14);
+            sfxChimeSynth.triggerAttackRelease('C6', '8n', now + 0.22);
+          }
+        } catch (err) {
+          console.warn('SFX tidak dapat dimainkan:', err);
+        }
+      }
+
+      /* =========================================================
+         DATA 5 HALAMAN NOTA RINGKAS IBADAH PUASA
+         ========================================================= */
+      const notaPages = [
+        {
+          number: 1,
+          title: '1. MAKSUD PUASA',
+          badge: 'Pengenalan Asas',
+          intro: 'Ketik pada kad definisi di bawah untuk menyerlahkan maksud puasa.',
+          type: 'definition',
+          definitionText: 'Puasa ialah menahan diri daripada perkara-perkara yang membatalkan puasa bermula daripada terbit fajar hingga terbenam matahari disertai dengan niat.',
+          highlights: [
+            { icon: '🌅', label: 'Waktu Bermula', desc: 'Terbit fajar sadiq (masuk waktu Subuh).' },
+            { icon: '🌇', label: 'Waktu Berbuka', desc: 'Terbenam matahari (masuk waktu Maghrib).' },
+            { icon: '🤲', label: 'Syarat Utama', desc: 'Disertai dengan niat kerana Allah Taala.' }
+          ]
+        },
+        {
+          number: 2,
+          title: '2. SYARAT WAJIB PUASA',
+          badge: 'Siapa yang Diwajibkan?',
+          intro: 'Terdapat 4 syarat wajib puasa. Ketik setiap kad untuk menandakan bacaan anda.',
+          type: 'list',
+          items: [
+            { icon: '🕌', term: 'Islam', desc: 'Tidak wajib bagi orang kafir.' },
+            { icon: '🧑', term: 'Baligh', desc: 'Kanak-kanak tidak diwajibkan berpuasa.' },
+            { icon: '🧠', term: 'Berakal', desc: 'Orang gila tidak diwajibkan berpuasa.' },
+            { icon: '💪', term: 'Mampu', desc: 'Tidak uzur dan tidak sakit.' }
+          ]
+        },
+        {
+          number: 3,
+          title: '3. SYARAT SAH PUASA',
+          badge: 'Bagaimana Puasa Menjadi Sah?',
+          intro: 'Terdapat 4 syarat sah puasa. Ketik setiap kad untuk membandingkannya dengan syarat wajib.',
+          type: 'list',
+          items: [
+            { icon: '☪️', term: 'Islam', desc: 'Orang yang bukan Islam tidak sah puasa.' },
+            { icon: '💧', term: 'Suci daripada haid, nifas dan wiladah', desc: 'Khusus bagi wanita.' },
+            { icon: '💡', term: 'Berakal (mumayyiz)', desc: 'Tidak sah puasa orang gila, pengsan dan belum mumayyiz.' },
+            { icon: '📅', term: 'Bertepatan dengan waktunya', desc: 'Tidak berpuasa pada hari-hari yang diharamkan berpuasa contohnya Hari Raya Aidilfitri dan Aidiladha.' }
+          ]
+        },
+        {
+          number: 4,
+          title: '4. RUKUN PUASA',
+          badge: '2 Perkara Utama Rukun',
+          intro: 'Puasa mempunyai 2 rukun penting. Ketik pada kad lafaz niat untuk menyerlahkannya.',
+          type: 'rukun',
+          niatRumi: '"Nawaitu sauma ghadin \'an ada\'i fardi syahri Ramadhana hazihis sanati lillahi ta\'ala."',
+          niatMaksud: '(Maksudnya: Sahaja aku berpuasa esok hari untuk menunaikan fardhu Ramadan tahun ini kerana Allah Taala.)',
+          secondRukun: 'Tidak melakukan perkara yang membatalkan puasa.'
+        },
+        {
+          number: 5,
+          title: '5. PERKARA YANG MEMBATALKAN PUASA',
+          badge: '7 Perkara Perlu Dielakkan',
+          intro: 'Ketik setiap kad di bawah untuk mengenal pasti 7 perkara yang membatalkan puasa.',
+          type: 'list',
+          items: [
+            { icon: '🩸', term: 'Haid, nifas dan wiladah.', desc: 'Membatalkan puasa wanita serta-merta apabila berlaku.' },
+            { icon: '😵', term: 'Pengsan dan mabuk sepanjang hari, gila walau sekejap.', desc: 'Hilang kewarasan atau kesedaran akal ketika berpuasa.' },
+            { icon: '🤢', term: 'Muntah dengan sengaja.', desc: 'Jika muntah tidak sengaja, puasa tidak terbatal.' },
+            { icon: '💦', term: 'Mengeluarkan air mani dengan sengaja.', desc: 'Perbuatan sengaja yang membatalkan ibadah puasa.' },
+            { icon: '🍽️', term: 'Memasukkan sesuatu melalui rongga terbuka sama ada makan, minum dan sebagainya.', desc: 'Seperti mulut, hidung, telinga dan rongga terbuka lain dengan sengaja.' },
+            { icon: '💑', term: 'Berjimak pada siang hari.', desc: 'Hubungan suami isteri pada waktu siang Ramadan.' },
+            { icon: '⚠️', term: 'Murtad.', desc: 'Keluar daripada agama Islam.' }
+          ]
+        }
+      ];
+
+      let currentPageIndex = 0;
+      const understoodPages = new Set();
+      const highlightedCards = new Set();
+
+      const notaPageContent = document.getElementById('notaPageContent');
+      const prevPageBtn = document.getElementById('prevPageBtn');
+      const nextPageBtn = document.getElementById('nextPageBtn');
+      const nextPageBtnLabel = document.getElementById('nextPageBtnLabel');
+      const nextPageBtnIcon = document.getElementById('nextPageBtnIcon');
+      const notaProgressBar = document.getElementById('notaProgressBar');
+      const pageFractionLabel = document.getElementById('pageFractionLabel');
+      const stepTabBtns = document.querySelectorAll('.step-tab-btn');
+      const pageDots = document.querySelectorAll('.page-dot');
+      const markUnderstoodBtn = document.getElementById('markUnderstoodBtn');
+      const markUnderstoodIcon = document.getElementById('markUnderstoodIcon');
+      const markUnderstoodText = document.getElementById('markUnderstoodText');
+      const starCountValue = document.getElementById('starCountValue');
+      const completionBanner = document.getElementById('completionBanner');
+      const completionSummaryText = document.getElementById('completionSummaryText');
+      const restartNotesBtn = document.getElementById('restartNotesBtn');
+      const closeCompletionBtn = document.getElementById('closeCompletionBtn');
+      const sfxToggleBtn = document.getElementById('sfxToggleBtn');
+      const sfxIconText = document.getElementById('sfxIconText');
+      const sfxStatusLabel = document.getElementById('sfxStatusLabel');
+
+      /**
+       * Mengemas kini status butang "Tandakan Faham" & pembilang bintang
+       */
+      function updateUnderstandingUI() {
+        starCountValue.textContent = understoodPages.size;
+        const isCurrentUnderstood = understoodPages.has(currentPageIndex);
+
+        if (isCurrentUnderstood) {
+          markUnderstoodBtn.className = 'inline-flex items-center justify-center gap-1 px-2 sm:px-2.5 py-1 rounded-lg font-extrabold text-[10px] sm:text-xs transition active:scale-95 cursor-pointer shrink-0 shadow-xs bg-gradient-to-r from-[#F4CE6A] to-[#DFAB38] text-[#0A2B24] border border-[#9E7114]';
+          markUnderstoodIcon.textContent = '🌟';
+          markUnderstoodText.textContent = 'Sudah Difahami!';
+        } else {
+          markUnderstoodBtn.className = 'inline-flex items-center justify-center gap-1 px-2 sm:px-2.5 py-1 rounded-lg font-bold text-[10px] sm:text-xs transition active:scale-95 cursor-pointer shrink-0 shadow-xs bg-[#134F43] hover:bg-[#0D3D33] text-[#FFF9E6] border border-[#E5BF5D]/60';
+          markUnderstoodIcon.textContent = '⭐';
+          markUnderstoodText.textContent = 'Tandakan Faham';
+        }
+
+        // Kemas kini tanda semak pada tab langkah panel sisi
+        stepTabBtns.forEach((btn, idx) => {
+          const checkEl = btn.querySelector('.step-check');
+          const isActiveTab = idx === currentPageIndex;
+          if (understoodPages.has(idx)) {
+            checkEl.textContent = '✓';
+            checkEl.className = isActiveTab
+              ? 'step-check text-[11px] sm:text-xs font-extrabold text-[#092B24] shrink-0'
+              : 'step-check text-[11px] sm:text-xs font-extrabold text-[#0F5244] shrink-0';
+          } else {
+            checkEl.textContent = '○';
+            checkEl.className = isActiveTab
+              ? 'step-check text-[11px] sm:text-xs font-bold text-[#092B24]/75 shrink-0'
+              : 'step-check text-[11px] sm:text-xs font-bold text-[#0D3B32]/65 shrink-0';
+          }
+        });
+      }
+
+      /**
+       * Memaparkan kandungan halaman nota mengikut indeks (0 - 4)
+       */
+      function renderNotaPage(index) {
+        currentPageIndex = index;
+        const page = notaPages[index];
+
+        // Kemas kini penggayaan tab panel sisi
+        stepTabBtns.forEach((btn, idx) => {
+          if (idx === index) {
+            btn.className = 'step-tab-btn px-2 sm:px-3 py-1 sm:py-1.5 lg:py-2 rounded-lg sm:rounded-xl text-left border-2 transition cursor-pointer flex items-center justify-between gap-1.5 bg-gradient-to-r from-[#F5D372] via-[#F9E193] to-[#E5B644] text-[#092B24] border-white shadow-md';
+          } else {
+            btn.className = 'step-tab-btn px-2 sm:px-3 py-1 sm:py-1.5 lg:py-2 rounded-lg sm:rounded-xl text-left border transition cursor-pointer flex items-center justify-between gap-1.5 bg-white hover:bg-[#FFFDF6] text-[#0C382F] border-[#DFB654]/60 shadow-xs';
+          }
+        });
+
+        // Kemas kini bar kemajuan & titik penunjuk
+        const progressPercent = ((index + 1) / notaPages.length) * 100;
+        notaProgressBar.style.width = `${progressPercent}%`;
+        pageFractionLabel.textContent = `${index + 1} / ${notaPages.length}`;
+
+        pageDots.forEach((dot, idx) => {
+          if (idx === index) {
+            dot.className = 'page-dot w-5 sm:w-6 h-1.5 sm:h-2 rounded-full bg-[#134F43] transition-all';
+          } else {
+            dot.className = 'page-dot w-1.5 sm:w-2 h-1.5 sm:h-2 rounded-full bg-[#134F43]/30 transition-all';
+          }
+        });
+
+        // Kemas kini butang navigasi Sebelumnya & Seterusnya
+        prevPageBtn.disabled = index === 0;
+        if (index === notaPages.length - 1) {
+          nextPageBtnLabel.textContent = 'Selesai';
+          nextPageBtnIcon.classList.add('hidden');
+        } else {
+          nextPageBtnLabel.textContent = 'Seterusnya';
+          nextPageBtnIcon.classList.remove('hidden');
+        }
+
+        // Bina HTML kandungan nota mengikut jenis halaman supaya lapang dalam nisbah 16:9
+        let bodyHTML = `
+          <div class="flex flex-wrap items-center justify-between gap-1.5 mb-1">
+            <h2 class="font-display text-sm sm:text-base lg:text-xl font-bold text-[#0A3129] tracking-wide">
+              ${page.title}
+            </h2>
+            <span class="inline-flex items-center px-2 py-0.5 rounded-full bg-[#134F43] text-[#FFF5D1] border border-[#DFB654]/50 text-[10px] font-bold shadow-2xs">
+              ${page.badge}
+            </span>
+          </div>
+          <p class="text-[11px] sm:text-xs font-medium text-[#213B35] mb-2">
+            ${page.intro}
+          </p>
+        `;
+
+        if (page.type === 'definition') {
+          const defKey = 'p0-def';
+          const isHl = highlightedCards.has(defKey) ? 'is-highlighted' : '';
+          bodyHTML += `
+            <div data-card-key="${defKey}" data-sfx="niatChime" class="note-item-card ${isHl} p-2.5 sm:p-3 lg:p-3.5 rounded-xl sm:rounded-2xl border-l-4 border-l-[#C99322] cursor-pointer">
+              <div class="flex items-start gap-2.5">
+                <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-[#134F43] text-[#FCE8A6] border border-[#E5BF5D]/60 flex items-center justify-center text-base shrink-0 shadow-xs">
+                  🌙
+                </div>
+                <div class="flex-1">
+                  <p class="text-xs sm:text-[13px] lg:text-sm font-bold text-[#0B2923] leading-relaxed">
+                    ${page.definitionText}
+                  </p>
+                  <span class="inline-block mt-1.5 px-2 py-0.5 rounded text-[10px] font-bold ${highlightedCards.has(defKey) ? 'bg-[#134F43] text-[#FFF5D1]' : 'bg-[#F5E8C7] text-[#6B4806]'}">
+                    ${highlightedCards.has(defKey) ? '✓ Telah dibaca dan diserlahkan' : '👆 Ketik kad ini untuk menyerlahkan'}
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="grid grid-cols-3 gap-2 sm:gap-2.5 mt-2 sm:mt-2.5">
+              ${page.highlights.map((h, i) => {
+                const key = `p0-h-${i}`;
+                const activeClass = highlightedCards.has(key) ? 'is-highlighted' : '';
+                return `
+                  <div data-card-key="${key}" data-sfx="cardTap" class="note-item-card ${activeClass} p-2 sm:p-2.5 rounded-xl cursor-pointer">
+                    <div class="flex items-center gap-1.5 font-extrabold text-[#0D3B32] text-[11px] sm:text-xs">
+                      <span class="text-sm">${h.icon}</span>
+                      <span class="truncate">${h.label}</span>
+                    </div>
+                    <p class="text-[10px] sm:text-[11px] font-medium text-[#223B35] mt-1 leading-snug">${h.desc}</p>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          `;
+        } else if (page.type === 'rukun') {
+          const niatKey = 'p3-niat';
+          const rukun2Key = 'p3-r2';
+          const niatActive = highlightedCards.has(niatKey) ? 'is-highlighted' : '';
+          const r2Active = highlightedCards.has(rukun2Key) ? 'is-highlighted' : '';
+          bodyHTML += `
+            <div class="space-y-2 sm:space-y-2.5">
+              <div data-card-key="${niatKey}" data-sfx="niatChime" class="note-item-card ${niatActive} p-2.5 sm:p-3 rounded-xl sm:rounded-2xl border-l-4 border-l-[#C99322] cursor-pointer">
+                <div class="flex flex-wrap items-center justify-between gap-1.5 mb-1">
+                  <span class="inline-flex items-center gap-1 text-xs sm:text-[13px] font-extrabold text-[#0B332B]">
+                    <span>🤲</span>
+                    <span>1. Niat Puasa Ramadan</span>
+                  </span>
+                  <span class="text-[10px] font-bold text-[#FFF7DF] bg-[#134F43] px-2 py-0.5 rounded-full shadow-2xs">
+                    👆 Ketik untuk bunyi loceng
+                  </span>
+                </div>
+                <p class="text-xs sm:text-[13px] lg:text-sm font-extrabold text-[#092620] italic leading-snug">
+                  ${page.niatRumi}
+                </p>
+                <p class="text-[11px] font-medium text-[#1F3832] mt-1 leading-snug">
+                  ${page.niatMaksud}
+                </p>
+              </div>
+
+              <div data-card-key="${rukun2Key}" data-sfx="cardTap" class="note-item-card ${r2Active} p-2.5 sm:p-3 rounded-xl sm:rounded-2xl border-l-4 border-l-[#165E4F] cursor-pointer flex items-center gap-2.5">
+                <div class="w-8 h-8 rounded-lg bg-[#134F43] text-[#FCE8A6] flex items-center justify-center text-sm font-bold shrink-0">
+                  🛡️
+                </div>
+                <div>
+                  <h3 class="text-xs sm:text-[13px] font-extrabold text-[#0B2923]">
+                    2. ${page.secondRukun}
+                  </h3>
+                  <p class="text-[11px] font-medium text-[#223B35] mt-0.5 leading-snug">
+                    Menahan diri daripada segala perkara yang membatalkan puasa sepanjang siang hari.
+                  </p>
+                </div>
+              </div>
+            </div>
+          `;
+        } else {
+          // Paparan senarai kad berikon (Syarat Wajib, Syarat Sah & Perkara Membatalkan Puasa)
+          const isDenseList = page.items.length > 4;
+          const cardPadding = isDenseList ? 'p-2 sm:p-2.5' : 'p-2.5 sm:p-3';
+          const gridGap = isDenseList ? 'gap-1.5 sm:gap-2' : 'gap-2 sm:gap-2.5';
+          bodyHTML += `
+            <div class="grid grid-cols-1 sm:grid-cols-2 ${gridGap}">
+              ${page.items.map((item, i) => {
+                const key = `p${index}-item-${i}`;
+                const activeClass = highlightedCards.has(key) ? 'is-highlighted' : '';
+                return `
+                  <div data-card-key="${key}" data-sfx="cardTap" class="note-item-card ${activeClass} ${cardPadding} rounded-xl cursor-pointer flex items-start gap-2">
+                    <div class="w-7 h-7 rounded-lg bg-[#134F43] text-[#FCE8A6] flex items-center justify-center text-sm shrink-0 mt-0.5 shadow-2xs">
+                      ${item.icon}
+                    </div>
+                    <div class="flex-1 min-w-0">
+                      <div class="flex items-start justify-between gap-1">
+                        <h3 class="text-[11px] sm:text-xs lg:text-[13px] font-extrabold text-[#0B2923] leading-snug">
+                          ${item.term}
+                        </h3>
+                        ${highlightedCards.has(key) ? '<span class="px-1.5 py-0.5 rounded bg-[#134F43] text-[#FFE89E] text-[9px] font-extrabold shrink-0">✓</span>' : ''}
+                      </div>
+                      <p class="text-[10px] sm:text-[11px] font-medium text-[#223B35] mt-0.5 leading-snug">
+                        ${item.desc}
+                      </p>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          `;
+        }
+
+        // Ulang animasi masuk halaman dengan lembut
+        notaPageContent.classList.remove('note-page-enter');
+        void notaPageContent.offsetWidth;
+        notaPageContent.classList.add('note-page-enter');
+        notaPageContent.innerHTML = bodyHTML;
+
+        // Pasang pendengar klik (SFX bukan navigasi) pada setiap kad isi nota
+        notaPageContent.querySelectorAll('[data-card-key]').forEach((cardEl) => {
+          cardEl.addEventListener('click', function () {
+            const cardKey = this.getAttribute('data-card-key');
+            const sfxType = this.getAttribute('data-sfx') || 'cardTap';
+            if (highlightedCards.has(cardKey)) {
+              highlightedCards.delete(cardKey);
+            } else {
+              highlightedCards.add(cardKey);
+            }
+            playSfx(sfxType);
+            renderNotaPage(currentPageIndex);
+          });
+        });
+
+        updateUnderstandingUI();
+      }
+
+      // Pengendali Butang Navigasi: Sebelumnya
+      prevPageBtn.addEventListener('click', function () {
+        if (currentPageIndex > 0) {
+          playSfx('navPrev');
+          completionBanner.classList.add('hidden');
+          renderNotaPage(currentPageIndex - 1);
+        }
+      });
+
+      // Pengendali Butang Navigasi: Halaman Seterusnya / Selesai
+      nextPageBtn.addEventListener('click', function () {
+        if (currentPageIndex < notaPages.length - 1) {
+          playSfx('navNext');
+          renderNotaPage(currentPageIndex + 1);
+        } else {
+          // Halaman terakhir (Halaman 5): Tunjukkan paparan tahniah
+          playSfx('starSuccess');
+          completionSummaryText.textContent = `Anda mengumpul ${understoodPages.size} daripada 5 Bintang Faham. Teruskan ke aktiviti kuiz untuk menguji kefahaman anda!`;
+          completionBanner.classList.remove('hidden');
+        }
+      });
+
+      // Pengendali Tab Navigasi Pantas (Halaman 1 - 5)
+      stepTabBtns.forEach((btn) => {
+        btn.addEventListener('click', function () {
+          const targetIdx = parseInt(this.getAttribute('data-page-target'), 10);
+          if (!Number.isNaN(targetIdx) && targetIdx !== currentPageIndex) {
+            playSfx(targetIdx > currentPageIndex ? 'navNext' : 'navPrev');
+            completionBanner.classList.add('hidden');
+            renderNotaPage(targetIdx);
+          }
+        });
+      });
+
+      // Pengendali Butang Bukan Navigasi: Tandakan Saya Faham
+      markUnderstoodBtn.addEventListener('click', function () {
+        if (understoodPages.has(currentPageIndex)) {
+          understoodPages.delete(currentPageIndex);
+          playSfx('cardTap');
+        } else {
+          understoodPages.add(currentPageIndex);
+          playSfx('starSuccess');
+        }
+        updateUnderstandingUI();
+      });
+
+      // Pengendali Butang Ulang Kaji Halaman 1
+      restartNotesBtn.addEventListener('click', function () {
+        playSfx('navPrev');
+        completionBanner.classList.add('hidden');
+        renderNotaPage(0);
+      });
+
+      // Pengendali Butang Tutup Paparan Tahniah untuk menyemak semula nota
+      closeCompletionBtn.addEventListener('click', function () {
+        playSfx('cardTap');
+        completionBanner.classList.add('hidden');
+      });
+
+      // Pengendali Butang Kawalan SFX (ON / OFF)
+      sfxToggleBtn.addEventListener('click', function () {
+        isSfxEnabled = !isSfxEnabled;
+        sfxToggleBtn.setAttribute('aria-pressed', isSfxEnabled ? 'true' : 'false');
+        if (isSfxEnabled) {
+          sfxIconText.textContent = '🔔';
+          sfxStatusLabel.textContent = 'SFX: ON';
+          playSfx('cardTap');
+        } else {
+          sfxIconText.textContent = '🔕';
+          sfxStatusLabel.textContent = 'SFX: OFF';
+        }
+      });
+
+      // Pelaporan ketinggian automatik untuk iframe JotForm (jika disokong oleh widget)
+      function notifyEmbedHeight() {
+        try {
+          const stage = document.getElementById('notaLandscapeStage');
+          if (stage && window.parent && window.parent !== window) {
+            const height = Math.ceil(stage.getBoundingClientRect().height);
+            window.parent.postMessage({ type: 'setHeight', height: height }, '*');
+            window.parent.postMessage({ frameHeight: height }, '*');
+          }
+        } catch (e) {
+          // Abaikan sekatan silang domain
+        }
+      }
+
+      if (typeof ResizeObserver !== 'undefined') {
+        const ro = new ResizeObserver(notifyEmbedHeight);
+        ro.observe(document.getElementById('notaLandscapeStage'));
+      }
+
+      // Paparkan Halaman 1 sebaik sahaja aplikasi dimuatkan
+      renderNotaPage(0);
+      notifyEmbedHeight();
+    };
+  </script>
+</body>
+</html>
